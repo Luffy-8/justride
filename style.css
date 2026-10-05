@@ -1,0 +1,160 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+header {
+  padding: 20px 60px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav h1 {
+  margin: 0;
+}
+
+nav div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+main section:first-child {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+main section:first-child h2 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+main section:first-child p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+main section:first-child button {
+  padding: 12px 24px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+main section:nth-child(2) {
+  padding: 60px;
+  text-align: center;
+}
+
+main section:nth-child(2) > div {
+  display: inline-block;
+  width: 25%;
+  margin: 20px;
+  vertical-align: top;
+}
+
+main section:nth-child(2) h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+main section:nth-child(2) h3 {
+  font-size: 24px;
+}
+
+main section:nth-child(2) p {
+  font-size: 16px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  margin-top: 60px;
+  border-top: 1px solid #ddd;
+}
+
+main section:first-child button {
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+header {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+nav h1 {
+  font-size: 28px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #222;
+}
+
+nav a:hover {
+  color: #555;
+}
+
+main section:first-child button:first-of-type {
+  background-color: #111;
+  color: white;
+}
+
+main section:first-child button:first-of-type:hover {
+  background-color: #333;
+}
+
+main section:first-child button:last-of-type {
+  background-color: white;
+  color: #111;
+  border: 1px solid #111;
+}
+
+main section:first-child button:last-of-type:hover {
+  background-color: #f2f2f2;
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 15px 20px;
+  }
+
+  nav {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  nav div {
+    gap: 12px;
+  }
+
+  main section:first-child {
+    padding: 70px 20px;
+  }
+
+  main section:first-child h2 {
+    font-size: 36px;
+  }
+
+  main section:first-child p {
+    font-size: 18px;
+  }
+
+  main section:nth-child(2) {
+    padding: 40px 20px;
+  }
+
+  main section:nth-child(2) > div {
+    display: block;
+    width: auto;
+    margin: 30px 0;
+  }
+}
