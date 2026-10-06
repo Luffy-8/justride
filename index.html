@@ -1,65 +1,120 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JustRide</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
-
+  <body>
+    <!-- Navigation -->
     <header>
-        <nav>
-            <h1>JustRide</h1>
+      <nav class="navbar">
+        <a href="#" class="logo">JustRide</a>
 
-            <div>
-                <a href="#">How It Works</a>
-                <a href="#">Login</a>
-                <button>Sign Up</button>
-            </div>
-        </nav>
+        <div class="nav-links">
+          <a href="#how-it-works">How It Works</a>
+          <a href="#">Login</a>
+          <button class="signup-btn">Sign Up</button>
+        </div>
+      </nav>
     </header>
 
+    <!-- Main Content -->
     <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content">
+          <p class="tagline">COMMUNITY-POWERED RIDES</p>
 
-        <section>
-            <h2>Find someone going your way.</h2>
+          <h1>Your ride.<br />Your route.<br />Your people.</h1>
 
-            <p>
-                Get an affordable ride.
-                Earn from your commute.
-            </p>
+          <p class="hero-description">
+            Find someone already going your way. Get an affordable ride or earn
+            from your commute.
+          </p>
 
-            <button>Find a Ride</button>
-            <button>Offer a Ride</button>
-        </section>
+          <div class="hero-buttons">
+            <button class="primary-btn" id="findRideBtn">Find a Ride</button>
+            <button class="secondary-btn" id="offerRide">Offer a Ride</button>
+          </div>
+          <div id="rideForm">
+            <h3>Find your ride</h3>
 
-        <section>
-            <h2>How JustRide Works</h2>
+            <input type="text" id="pickupInput" placeholder="Pickup location" />
+            <input
+              type="text"
+              id="destinationInput"
+              placeholder="Destination"
+            />
 
-            <div>
-                <h3>1. Request</h3>
-                <p>Enter where you want to go.</p>
-            </div>
+            <button id="searchRidesBtn">Search Rides</button>
+            <p id="searchResult"></p>
+          </div>
+          <div id="ridesContainer"></div>
+        </div>
+      </section>
 
-            <div>
-                <h3>2. Match</h3>
-                <p>Find someone already going your way.</p>
-            </div>
+      <!-- How It Works -->
+      <section class="how-it-works" id="how-it-works">
+        <div class="section-heading">
+          <p class="tagline">SIMPLE. AFFORDABLE. CONNECTED.</p>
 
-            <div>
-                <h3>3. Ride</h3>
-                <p>Meet up and complete your ride.</p>
-            </div>
-        </section>
+          <h2>How JustRide Works</h2>
 
+          <p>Three simple steps to get where you're going.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step-card">
+            <div class="step-number">01</div>
+
+            <h3>Request</h3>
+
+            <p>Enter your pickup location, destination and preferred time.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">02</div>
+
+            <h3>Match</h3>
+
+            <p>We find people already travelling along your route.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">03</div>
+
+            <h3>Ride</h3>
+
+            <p>Connect, meet at the pickup point and complete your ride.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom CTA -->
+      <section class="bottom-cta">
+        <h2>Going somewhere?</h2>
+
+        <p>Someone might already be going your way.</p>
+
+        <button class="primary-btn">Find a Ride</button>
+      </section>
     </main>
 
+    <!-- Footer -->
     <footer>
-        <p>Ride together. Save together.</p>
+      <div class="footer-content">
+        <div>
+          <h3>JustRide</h3>
+
+          <p>Ride together. Save together.</p>
+        </div>
+
+        <p class="copyright">© 2026 JustRide</p>
+      </div>
     </footer>
-    
-</body>
-</html>
+    <script src="script.js"></script>
+  </body>
 </html>

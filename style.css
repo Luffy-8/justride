@@ -1,160 +1,417 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
+  color: #111;
+  background-color: #ffffff;
+  line-height: 1.6;
 }
+
+/* =========================
+   NAVBAR
+========================= */
 
 header {
-  padding: 20px 60px;
+  border-bottom: 1px solid #eeeeee;
 }
 
-nav {
+.navbar {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px 30px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-nav h1 {
-  margin: 0;
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+  text-decoration: none;
 }
 
-nav div {
+.nav-links {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 28px;
 }
 
-main section:first-child {
-  text-align: center;
-  padding: 100px 20px;
-}
-
-main section:first-child h2 {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-main section:first-child p {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
-main section:first-child button {
-  padding: 12px 24px;
-  margin: 5px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-main section:nth-child(2) {
-  padding: 60px;
-  text-align: center;
-}
-
-main section:nth-child(2) > div {
-  display: inline-block;
-  width: 25%;
-  margin: 20px;
-  vertical-align: top;
-}
-
-main section:nth-child(2) h2 {
-  font-size: 36px;
-  margin-bottom: 40px;
-}
-
-main section:nth-child(2) h3 {
-  font-size: 24px;
-}
-
-main section:nth-child(2) p {
-  font-size: 16px;
-}
-
-footer {
-  text-align: center;
-  padding: 30px;
-  margin-top: 60px;
-  border-top: 1px solid #ddd;
-}
-
-main section:first-child button {
-  border: none;
-  border-radius: 8px;
-  padding: 14px 28px;
-  margin: 5px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-header {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-nav h1 {
-  font-size: 28px;
-}
-
-nav a {
+.nav-links a {
+  color: #333;
   text-decoration: none;
-  color: #222;
+  font-size: 15px;
 }
 
-nav a:hover {
-  color: #555;
+.nav-links a:hover {
+  color: #000;
 }
 
-main section:first-child button:first-of-type {
+.signup-btn {
   background-color: #111;
   color: white;
+
+  border: none;
+  border-radius: 6px;
+
+  padding: 10px 18px;
+
+  font-size: 14px;
+  cursor: pointer;
 }
 
-main section:first-child button:first-of-type:hover {
+.signup-btn:hover {
   background-color: #333;
 }
 
-main section:first-child button:last-of-type {
-  background-color: white;
-  color: #111;
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  max-width: 1200px;
+  margin: auto;
+
+  min-height: 620px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 80px 30px;
+}
+
+.hero-content {
+  max-width: 750px;
+}
+
+.tagline {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #666;
+
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: 64px;
+  line-height: 1.05;
+
+  letter-spacing: -2px;
+
+  margin-bottom: 28px;
+}
+
+.hero-description {
+  max-width: 600px;
+  margin: auto;
+
+  font-size: 19px;
+  color: #555;
+
+  margin-bottom: 35px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.primary-btn,
+.secondary-btn {
+  padding: 14px 28px;
+
+  border-radius: 7px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.primary-btn {
+  background-color: #111;
+  color: white;
+
   border: 1px solid #111;
 }
 
-main section:first-child button:last-of-type:hover {
-  background-color: #f2f2f2;
+.primary-btn:hover {
+  background-color: #333;
 }
 
+.secondary-btn {
+  background-color: white;
+  color: #111;
+
+  border: 1px solid #cccccc;
+}
+
+.secondary-btn:hover {
+  background-color: #f5f5f5;
+}
+
+/* =========================
+   HOW IT WORKS
+========================= */
+
+.how-it-works {
+  background-color: #f7f7f7;
+
+  padding: 100px 30px;
+}
+
+.section-heading {
+  text-align: center;
+
+  max-width: 600px;
+  margin: auto;
+
+  margin-bottom: 60px;
+}
+
+.section-heading h2 {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.section-heading > p:last-child {
+  color: #666;
+  font-size: 17px;
+}
+
+/* =========================
+   STEP CARDS
+========================= */
+
+.steps {
+  max-width: 1100px;
+  margin: auto;
+
+  display: flex;
+  gap: 25px;
+}
+
+.step-card {
+  flex: 1;
+
+  background-color: white;
+
+  padding: 35px;
+
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+}
+
+.step-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+
+  transition: 0.2s;
+}
+
+.step-number {
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #777;
+
+  margin-bottom: 20px;
+}
+
+.step-card h3 {
+  font-size: 24px;
+
+  margin-bottom: 12px;
+}
+
+.step-card p {
+  color: #666;
+
+  font-size: 15px;
+}
+
+/* =========================
+   BOTTOM CTA
+========================= */
+
+.bottom-cta {
+  text-align: center;
+
+  padding: 100px 30px;
+}
+
+.bottom-cta h2 {
+  font-size: 40px;
+
+  margin-bottom: 10px;
+}
+
+.bottom-cta p {
+  color: #666;
+
+  margin-bottom: 25px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  border-top: 1px solid #eeeeee;
+
+  padding: 35px 30px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-content h3 {
+  font-size: 20px;
+
+  margin-bottom: 5px;
+}
+
+.footer-content p {
+  color: #777;
+
+  font-size: 14px;
+}
+
+.copyright {
+  text-align: right;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
 @media (max-width: 768px) {
-  header {
-    padding: 15px 20px;
+  .navbar {
+    flex-direction: column;
+    gap: 15px;
+
+    padding: 18px 20px;
   }
 
-  nav {
-    flex-direction: column;
+  .nav-links {
     gap: 15px;
   }
 
-  nav div {
-    gap: 12px;
+  .hero {
+    min-height: 550px;
+
+    padding: 60px 20px;
   }
 
-  main section:first-child {
-    padding: 70px 20px;
+  .hero h1 {
+    font-size: 44px;
   }
 
-  main section:first-child h2 {
-    font-size: 36px;
+  .hero-description {
+    font-size: 17px;
   }
 
-  main section:first-child p {
-    font-size: 18px;
+  .hero-buttons {
+    flex-direction: column;
+
+    max-width: 300px;
+
+    margin: auto;
   }
 
-  main section:nth-child(2) {
-    padding: 40px 20px;
+  .steps {
+    flex-direction: column;
   }
 
-  main section:nth-child(2) > div {
-    display: block;
-    width: auto;
-    margin: 30px 0;
+  .section-heading h2 {
+    font-size: 34px;
   }
+
+  .bottom-cta h2 {
+    font-size: 32px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+
+    gap: 20px;
+
+    text-align: center;
+  }
+
+  .copyright {
+    text-align: center;
+  }
+}
+#rideForm {
+  display: none;
+}
+
+#rideForm {
+  margin: 25px auto;
+  padding: 25px;
+  max-width: 500px;
+
+  background-color: #f7f7f7;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+}
+
+#rideForm h3 {
+  margin-bottom: 20px;
+}
+
+#rideForm input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+
+  border: 1px solid #ccc;
+  border-radius: 6px;
+
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+#rideForm button {
+  width: 100%;
+  padding: 12px;
+
+  background-color: #111;
+  color: white;
+
+  border: none;
+  border-radius: 6px;
+
+  font-size: 15px;
+  cursor: pointer;
+}
+
+#rideForm button:hover {
+  background-color: #333;
 }
