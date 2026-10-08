@@ -159,3 +159,73 @@ async function loadRides() {
 }
 
 loadRides();
+
+//Practice
+
+async function getData() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+
+  console.log("Status:", response.status);
+  console.log("Success:", response.ok);
+
+  const data = await response.json();
+
+  console.log(data);
+}
+
+getData();
+
+async function createRide() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: "Raju",
+      from: "Narsingi",
+      to: "Mehdipatnam",
+      fare: 35,
+    }),
+  });
+
+  const data = await response.json();
+
+  console.log(data);
+}
+
+createRide();
+
+async function sendRideRequest() {
+  const rideRequest = {
+    passenger: "Revanth",
+    from: "Narsingi",
+    to: "Mehdipatnam",
+    offer: 35,
+  };
+
+  try {
+    console.log("Sending ride request...");
+
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(rideRequest),
+    });
+
+    if (!response.ok) {
+      throw new Error("Request failed");
+    }
+
+    const data = await response.json();
+
+    console.log("Ride request successful!");
+    console.log("Ride request sent:", data);
+  } catch (error) {
+    console.log("Something went wrong:", error.message);
+  }
+}
+
+sendRideRequest();
