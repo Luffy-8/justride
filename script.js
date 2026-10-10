@@ -1,5 +1,5 @@
 const ridesContainer = document.getElementById("ridesContainer");
-
+const showAllRidesBtn = document.getElementById("showAllRidesBtn");
 const rides = [
   {
     name: "Raju",
@@ -89,4 +89,17 @@ searchRidesBtn.addEventListener("click", function () {
   matchingRides.forEach(function (ride) {
     ridesContainer.innerHTML += createRideCard(ride);
   });
+});
+
+showAllRidesBtn.addEventListener("click", function () {
+  pickupInput.value = "";
+  destinationInput.value = "";
+
+  ridesContainer.innerHTML = "";
+
+  rides.forEach(function (ride) {
+    ridesContainer.innerHTML += createRideCard(ride);
+  });
+
+  searchResult.textContent = `Showing all ${rides.length} rides!`;
 });

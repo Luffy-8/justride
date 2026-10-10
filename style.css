@@ -415,3 +415,50 @@ footer {
 #rideForm button:hover {
   background-color: #333;
 }
+
+#showAllRidesBtn {
+  background-color: #16a085;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#showAllRidesBtn:hover {
+  background-color: #117864;
+}
+
+/* Space between the search buttons */
+#searchRidesBtn,
+#showAllRidesBtn {
+  display: block;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Main action */
+#searchRidesBtn {
+  background-color: #111111;
+  color: white;
+  border: 1px solid #111111;
+  margin-bottom: 10px;
+}
+
+/* Secondary action */
+#showAllRidesBtn {
+  background-color: white;
+  color: #111111;
+  border: 1px solid #cccccc;
+  margin-top: 0;
+  transition: background-color 0.2s ease;
+}
+
+#showAllRidesBtn:hover {
+  background-color: #f0f0f0;
+}
