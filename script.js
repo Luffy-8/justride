@@ -1,31 +1,26 @@
+let rides = [];
+
+async function loadRides() {
+  ridesContainer.textContent = "Loading rides...";
+  try {
+    const response = await fetch("http://localhost:3000/rides");
+    const fetchedRides = await response.json();
+
+    rides = fetchedRides;
+
+    ridesContainer.innerHTML = "";
+    rides.forEach((ride) => {
+      ridesContainer.innerHTML += createRideCard(ride);
+    });
+  } catch (error) {
+    console.error("Failed to load rides:", error);
+    ridesContainer.textContent =
+      "Unable to load rides. Please try again later.";
+  }
+}
+
 const ridesContainer = document.getElementById("ridesContainer");
 const showAllRidesBtn = document.getElementById("showAllRidesBtn");
-const rides = [
-  {
-    name: "Raju",
-    from: "Narsingi",
-    to: "Mehdipatnam",
-    fare: 35,
-    rating: 4.8,
-    vehicle: "Bike",
-  },
-  {
-    name: "Arjun",
-    from: "Narsingi",
-    to: "Ibrahim Bagh",
-    fare: 30,
-    rating: 4.6,
-    vehicle: "Bike",
-  },
-  {
-    name: "Kiran",
-    from: "Narsingi",
-    to: "Mehdipatnam",
-    fare: 40,
-    rating: 4.9,
-    vehicle: "Car",
-  },
-];
 
 const findRideBtn = document.getElementById("findRideBtn");
 const rideForm = document.getElementById("rideForm");
@@ -103,3 +98,5 @@ showAllRidesBtn.addEventListener("click", function () {
 
   searchResult.textContent = `Showing all ${rides.length} rides!`;
 });
+
+loadRides();
