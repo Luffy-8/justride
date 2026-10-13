@@ -19,6 +19,14 @@ async function loadRides() {
   }
 }
 
+const passengerNameInput = document.getElementById("passengerNameInput");
+const requestPickupInput = document.getElementById("requestPickupInput");
+const requestDestinationInput = document.getElementById(
+  "requestDestinationInput",
+);
+const submitRideRequestBtn = document.getElementById("submitRideRequestBtn");
+const requestRideMessage = document.getElementById("requestRideMessage");
+
 const ridesContainer = document.getElementById("ridesContainer");
 const showAllRidesBtn = document.getElementById("showAllRidesBtn");
 
@@ -100,3 +108,57 @@ showAllRidesBtn.addEventListener("click", function () {
 });
 
 loadRides();
+
+submitRideRequestBtn.addEventListener("click", async () => {
+  const passengerName = passengerNameInput.value.trim();
+  const from = requestPickupInput.value.trim();
+  const to = requestDestinationInput.value.trim();
+
+  // Step 1: Validate the form
+  if (!passengerName || !from || !to) {
+    requestRideMessage.textContent =
+      "Please fill in your name, pickup, and destination.";
+    return;
+  }
+
+  // Step 2: Send the request to the backend
+  try {
+    requestRideMessage.textContent = "Submitting your ride request...";
+    submitRideRequestBtn.disabled = true;
+
+    const response = await fetch("http://localhost:3000/ride-requests", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        passengerName,
+        from,
+        to,
+      }),
+    });
+
+    const result = await response.json();
+
+    // Step 3: Handle the backend response
+    if (!response.ok) {
+      requestRideMessage.textContent =
+        result.message || "Unable to submit your ride request.";
+      return;
+    }
+
+    requestRideMessage.textContent = result.message;
+    console.log("Ride request submitted:", result);
+
+    // Step 4: Clear the form after success
+    passengerNameInput.value = "";
+    requestPickupInput.value = "";
+    requestDestinationInput.value = "";
+  } catch (error) {
+    console.error("Ride request failed:", error);
+    requestRideMessage.textContent =
+      "Unable to connect to the server. Please try again.";
+  } finally {
+    submitRideRequestBtn.disabled = false;
+  }
+});
