@@ -33,10 +33,14 @@ app.get("/health", (req, res) => {
   });
 });
 
+app.get("/ride-requests", (req, res) => {
+  res.status(200).json(rideRequests);
+});
+
 app.post("/ride-requests", (req, res) => {
   const { passengerName, from, to } = req.body;
 
-  if (!passengerName || !from || !to) {
+  if (!passengerName.trim() || !from.trim() || !to.trim()) {
     return res.status(400).json({
       success: false,
       message: "Passenger name, pickup, and destination are required",
