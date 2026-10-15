@@ -20,9 +20,30 @@ app.get("/", (req, res) => {
 
 app.get("/rides", (req, res) => {
   res.json([
-    { name: "Raju", from: "Narsingi", to: "Mehdipatnam", fare: 35 },
-    { name: "Arjun", from: "Narsingi", to: "Ibrahim Bagh", fare: 30 },
-    { name: "Kiran", from: "Narsingi", to: "Mehdipatnam", fare: 40 },
+    {
+      name: "Raju",
+      from: "Narsingi",
+      to: "Mehdipatnam",
+      fare: 35,
+      rating: 4.8,
+      vehicle: "Bike",
+    },
+    {
+      name: "Arjun",
+      from: "Narsingi",
+      to: "Ibrahim Bagh",
+      fare: 30,
+      rating: 4.6,
+      vehicle: "Scooter",
+    },
+    {
+      name: "Kiran",
+      from: "Narsingi",
+      to: "Mehdipatnam",
+      fare: 40,
+      rating: 4.9,
+      vehicle: "Bike",
+    },
   ]);
 });
 

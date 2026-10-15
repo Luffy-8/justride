@@ -462,3 +462,147 @@ footer {
 #showAllRidesBtn:hover {
   background-color: #f0f0f0;
 }
+
+/* =========================
+   REQUEST A RIDE FORM
+========================= */
+
+#requestRideForm {
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 32px;
+
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.07);
+}
+
+#requestRideForm h3 {
+  font-size: 26px;
+  margin-bottom: 24px;
+  color: #111111;
+}
+
+#requestRideForm input {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 9px;
+
+  font-size: 15px;
+  font-family: inherit;
+
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+#requestRideForm input:focus {
+  border-color: #111111;
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
+}
+
+#requestRideForm button {
+  display: block;
+  width: 100%;
+  padding: 14px;
+
+  background-color: #111111;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 9px;
+
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+#requestRideForm button:hover {
+  background-color: #333333;
+  transform: translateY(-1px);
+}
+
+#requestRideForm button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#requestRideMessage {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #444444;
+}
+
+/* Mobile layout */
+@media (max-width: 520px) {
+  #requestRideForm {
+    margin: 24px 16px;
+    padding: 24px 20px;
+  }
+
+  #requestRideForm h3 {
+    font-size: 23px;
+  }
+}
+
+/* =========================
+   AVAILABLE RIDE CARDS
+========================= */
+
+#ridesContainer {
+  width: min(100% - 32px, 900px);
+  margin: 32px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.ride-card {
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ride-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.ride-card h3 {
+  margin-bottom: 12px;
+  font-size: 20px;
+  color: #111111;
+}
+
+.ride-card p {
+  margin-top: 8px;
+  color: #555555;
+  font-size: 14px;
+}
+
+#requestRideForm label {
+  display: block;
+  margin-bottom: 6px;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+}
