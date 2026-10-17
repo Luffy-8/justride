@@ -1,4 +1,5 @@
 let rides = [];
+let ridesLoaded = false;
 
 async function loadRides() {
   ridesContainer.textContent = "Loading rides...";
@@ -7,6 +8,7 @@ async function loadRides() {
     const fetchedRides = await response.json();
 
     rides = fetchedRides;
+    ridesLoaded = true;
 
     ridesContainer.innerHTML = "";
     rides.forEach((ride) => {
@@ -62,10 +64,14 @@ const createRideCard = (ride) => {
 
 function searchRides(pickup, destination) {
   return rides.filter(function (ride) {
-    return (
-      ride.from.toLowerCase() === pickup.toLowerCase() &&
-      ride.to.toLowerCase() === destination.toLowerCase()
-    );
+    if (typeof ride.from === "string" && typeof ride.to === "string") {
+      return (
+        ride.from.toLowerCase() === pickup.toLowerCase() &&
+        ride.to.toLowerCase() === destination.toLowerCase()
+      );
+    }
+
+    return false;
   });
 }
 
@@ -73,12 +79,18 @@ searchRidesBtn.addEventListener("click", function () {
   const pickup = pickupInput.value.trim();
   const destination = destinationInput.value.trim();
 
-  ridesContainer.innerHTML = "";
+  if (!ridesLoaded) {
+    searchResult.textContent = "Unable to load rides. Please try again later.";
+    return;
+  }
+
+  searchResult.textContent = "";
 
   if (pickup === "" || destination === "") {
     searchResult.textContent = "Please enter pickup and destination.";
     return;
   }
+  ridesContainer.innerHTML = "";
 
   const matchingRides = searchRides(pickup, destination);
 
