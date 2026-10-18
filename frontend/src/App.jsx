@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import heroImg from "./assets/hero.png";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
 import "./App.css";
 import RideCard from "./RideCard.jsx";
 
 function App() {
-  const [count, setCount] = useState(5);
-
   const [rides, setRides] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function loadRides() {
@@ -21,8 +20,11 @@ function App() {
 
         const data = await response.json();
         setRides(data);
-      } catch (error) {
-        console.error("Error loading rides:", error);
+      } catch (err) {
+        console.error("Error loading rides:", err);
+        setError("Unable to load rides. Please try again later.");
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -31,124 +33,49 @@ function App() {
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+      <header>
+        <h1>JustRide 🏎️</h1>
+        <p>Your commute, connected.</p>
+
+        <nav>
+          <a href="/">Home</a>
+          <a href="#available-rides">Find Rides</a>
+          <a href="#offer-ride">Offer a Ride</a>
+        </nav>
+      </header>
+
+      <section id="available-rides" className="rides-section">
+        <h2>Available Rides</h2>
+        <p>Find a ride that matches your route.</p>
+
+        {loading ? (
+          <p>Finding available rides...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : rides.length === 0 ? (
+          <p>No rides available right now. Check back soon!</p>
+        ) : (
+          <div className="rides-grid">
+            {rides.map((ride) => (
+              <RideCard
+                key={ride.id}
+                name={ride.name}
+                from={ride.from}
+                to={ride.to}
+                fare={ride.fare}
+                rating={ride.rating}
+                vehicle={ride.vehicle}
+              />
+            ))}
+          </div>
+        )}
       </section>
 
-      {rides.map((ride) => (
-        <RideCard
-          key={ride.id}
-          name={ride.name}
-          from={ride.from}
-          to={ride.to}
-          fare={ride.fare}
-          rating={ride.rating}
-          vehicle={ride.vehicle}
-        />
-      ))}
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
+      <section id="offer-ride" className="offer-section">
+        <h2>Have a ride to offer?</h2>
+        <p>Share your route and connect with people travelling your way.</p>
+        <button type="button">Offer a Ride</button>
       </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
     </>
   );
 }
