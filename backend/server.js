@@ -23,33 +23,80 @@ app.get("/", (req, res) => {
   res.status(200).send("JUST RIDE BACKEND IS WORKING!");
 });
 
+const rides = [
+  {
+    id: 1,
+    name: "Raju",
+    from: "Narsingi",
+    to: "Mehdipatnam",
+    fare: 35,
+    rating: 4.8,
+    vehicle: "Bike",
+  },
+  {
+    id: 2,
+    name: "Arjun",
+    from: "Narsingi",
+    to: "Ibrahim Bagh",
+    fare: 30,
+    rating: 4.6,
+    vehicle: "Scooter",
+  },
+  {
+    id: 3,
+    name: "Kiran",
+    from: "Narsingi",
+    to: "Mehdipatnam",
+    fare: 40,
+    rating: 4.9,
+    vehicle: "Bike",
+  },
+];
+
+// Return all available rides
 app.get("/rides", (req, res) => {
-  res.json([
-    {
-      name: "Raju",
-      from: "Narsingi",
-      to: "Mehdipatnam",
-      fare: 35,
-      rating: 4.8,
-      vehicle: "Bike",
-    },
-    {
-      name: "Arjun",
-      from: "Narsingi",
-      to: "Ibrahim Bagh",
-      fare: 30,
-      rating: 4.6,
-      vehicle: "Scooter",
-    },
-    {
-      name: "Kiran",
-      from: "Narsingi",
-      to: "Mehdipatnam",
-      fare: 40,
-      rating: 4.9,
-      vehicle: "Bike",
-    },
-  ]);
+  res.json(rides);
+});
+
+// Accept a new ride
+app.post("/rides", (req, res) => {
+  const { name, from, to, vehicle, fare } = req.body;
+
+  if (
+    typeof name !== "string" ||
+    typeof from !== "string" ||
+    typeof to !== "string" ||
+    typeof vehicle !== "string" ||
+    !name.trim() ||
+    !from.trim() ||
+    !to.trim() ||
+    !["Bike", "Scooter", "Car"].includes(vehicle) ||
+    fare === "" ||
+    fare === null ||
+    fare === undefined ||
+    !Number.isFinite(Number(fare)) ||
+    Number(fare) <= 0
+  ) {
+    return res.status(400).json({
+      message: "Please provide valid ride details.",
+    });
+  }
+
+  const newRide = {
+    id: Date.now(),
+    name: name.trim(),
+    from: from.trim(),
+    to: to.trim(),
+    vehicle,
+    fare: Number(fare),
+  };
+
+  rides.push(newRide);
+
+  res.status(201).json({
+    message: "Ride offered successfully!",
+    ride: newRide,
+  });
 });
 
 app.get("/health", (req, res) => {
