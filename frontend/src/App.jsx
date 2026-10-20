@@ -7,16 +7,76 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Offer a Ride form state
+  // Passenger request form state
+  const [passengerName, setPassengerName] = useState("");
+  const [pickup, setPickup] = useState("");
+  const [drop, setDrop] = useState("");
+  const [requestMessage, setRequestMessage] = useState("");
+  const [requesting, setRequesting] = useState(false);
+
+  // Driver offer form state
   const [driverName, setDriverName] = useState("");
   const [startLocation, setStartLocation] = useState("");
   const [destination, setDestination] = useState("");
   const [vehicle, setVehicle] = useState("");
   const [fare, setFare] = useState("");
   const [formMessage, setFormMessage] = useState("");
+  const [offering, setOffering] = useState(false);
 
-  // Handle form submission
+  // Submit a passenger ride request
+  async function handleRequestSubmit(event) {
+    event.preventDefault();
+    setRequestMessage("");
 
+    if (!passengerName.trim() || !pickup.trim() || !drop.trim()) {
+      setRequestMessage("Please fill in every field.");
+      return;
+    }
+
+    if (pickup.trim().toLowerCase() === drop.trim().toLowerCase()) {
+      setRequestMessage("Pickup and destination must be different.");
+      return;
+    }
+
+    setRequesting(true);
+
+    const newRequest = {
+      passengerName: passengerName.trim(),
+      from: pickup.trim(),
+      to: drop.trim(),
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/ride-requests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newRequest),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to submit ride request.");
+      }
+
+      setRequestMessage(data.message || "Ride request submitted successfully!");
+
+      setPassengerName("");
+      setPickup("");
+      setDrop("");
+    } catch (err) {
+      console.error("Error submitting ride request:", err);
+      setRequestMessage(
+        err.message || "Unable to submit request. Please try again.",
+      );
+    } finally {
+      setRequesting(false);
+    }
+  }
+
+  // Submit a driver ride offer
   async function handleSubmit(event) {
     event.preventDefault();
     setFormMessage("");
@@ -29,6 +89,13 @@ function App() {
       !fare.trim()
     ) {
       setFormMessage("Please fill in every field.");
+      return;
+    }
+
+    if (
+      startLocation.trim().toLowerCase() === destination.trim().toLowerCase()
+    ) {
+      setFormMessage("Starting location and destination must differ.");
       return;
     }
 
@@ -47,6 +114,8 @@ function App() {
       fare: numericFare,
     };
 
+    setOffering(true);
+
     try {
       const response = await fetch("http://localhost:3000/rides", {
         method: "POST",
@@ -63,7 +132,6 @@ function App() {
       }
 
       setRides((currentRides) => [...currentRides, data.ride]);
-
       setFormMessage("Ride offered successfully!");
 
       setDriverName("");
@@ -74,10 +142,12 @@ function App() {
     } catch (err) {
       console.error("Error offering ride:", err);
       setFormMessage(err.message || "Unable to offer ride. Please try again.");
+    } finally {
+      setOffering(false);
     }
   }
 
-  // Load available rides from the backend
+  // Load available rides
   useEffect(() => {
     async function loadRides() {
       try {
@@ -109,6 +179,7 @@ function App() {
         <nav>
           <a href="/">Home</a>
           <a href="#available-rides">Find Rides</a>
+          <a href="#request-ride">Request a Ride</a>
           <a href="#offer-ride">Offer a Ride</a>
         </nav>
       </header>
@@ -140,6 +211,43 @@ function App() {
         )}
       </section>
 
+      <section id="request-ride" className="offer-section">
+        <h2>Need a Ride?</h2>
+        <p>Tell us where you're going, and request a ride.</p>
+
+        <form onSubmit={handleRequestSubmit}>
+          <input
+            type="text"
+            placeholder="Your name"
+            value={passengerName}
+            onChange={(event) => setPassengerName(event.target.value)}
+            disabled={requesting}
+          />
+
+          <input
+            type="text"
+            placeholder="Pickup location"
+            value={pickup}
+            onChange={(event) => setPickup(event.target.value)}
+            disabled={requesting}
+          />
+
+          <input
+            type="text"
+            placeholder="Destination"
+            value={drop}
+            onChange={(event) => setDrop(event.target.value)}
+            disabled={requesting}
+          />
+
+          <button type="submit" disabled={requesting}>
+            {requesting ? "Submitting..." : "Request a Ride"}
+          </button>
+
+          {requestMessage && <p role="status">{requestMessage}</p>}
+        </form>
+      </section>
+
       <section id="offer-ride" className="offer-section">
         <h2>Have a ride to offer?</h2>
         <p>Share your route and connect with people travelling your way.</p>
@@ -150,6 +258,7 @@ function App() {
             placeholder="Enter your name"
             value={driverName}
             onChange={(event) => setDriverName(event.target.value)}
+            disabled={offering}
           />
 
           <input
@@ -157,6 +266,7 @@ function App() {
             placeholder="Starting location"
             value={startLocation}
             onChange={(event) => setStartLocation(event.target.value)}
+            disabled={offering}
           />
 
           <input
@@ -164,11 +274,13 @@ function App() {
             placeholder="Destination"
             value={destination}
             onChange={(event) => setDestination(event.target.value)}
+            disabled={offering}
           />
 
           <select
             value={vehicle}
             onChange={(event) => setVehicle(event.target.value)}
+            disabled={offering}
           >
             <option value="">Select your vehicle</option>
             <option value="Bike">Bike</option>
@@ -183,9 +295,12 @@ function App() {
             step="any"
             value={fare}
             onChange={(event) => setFare(event.target.value)}
+            disabled={offering}
           />
 
-          <button type="submit">Offer a Ride</button>
+          <button type="submit" disabled={offering}>
+            {offering ? "Submitting..." : "Offer a Ride"}
+          </button>
 
           {formMessage && <p role="status">{formMessage}</p>}
         </form>
