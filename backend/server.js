@@ -111,22 +111,50 @@ app.get("/ride-requests", (req, res) => {
 });
 
 app.post("/ride-requests", (req, res) => {
-  const { passengerName, from, to } = req.body;
+  const { passengerName, from, to } = req.body ?? {};
 
-  if (!passengerName.trim() || !from.trim() || !to.trim()) {
+  if (
+    typeof passengerName !== "string" ||
+    typeof from !== "string" ||
+    typeof to !== "string" ||
+    !passengerName.trim() ||
+    !from.trim() ||
+    !to.trim()
+  ) {
     return res.status(400).json({
       success: false,
-      message: "Passenger name, pickup, and destination are required",
+      message: "Passenger name, pickup, and destination are required.",
     });
   }
-  const newRequest = { passengerName, from, to };
+
+  if (from.trim().toLowerCase() === to.trim().toLowerCase()) {
+    return res.status(400).json({
+      success: false,
+      message: "Pickup and destination must be different.",
+    });
+  }
+
+  const newRequest = {
+    passengerName: passengerName.trim(),
+    from: from.trim(),
+    to: to.trim(),
+  };
+
   rideRequests.push(newRequest);
 
-  res.status(201).json({
+  return res.status(201).json({
     success: true,
     message: "Ride request submitted successfully!",
     request: newRequest,
   });
+});
+
+app.get("/ride-requests", (req, res) => {
+  res.json(rideRequests);
+});
+
+app.get("/ride-requests", (req, res) => {
+  res.json(rideRequests);
 });
 
 app.listen(3000, () => {
