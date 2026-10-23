@@ -60,7 +60,7 @@ app.get("/rides", (req, res) => {
 
 // Accept a new ride
 app.post("/rides", (req, res) => {
-  const { name, from, to, vehicle, fare } = req.body;
+  const { name, from, to, vehicle, fare } = req.body ?? {};
 
   if (
     typeof name !== "string" ||
@@ -79,6 +79,12 @@ app.post("/rides", (req, res) => {
   ) {
     return res.status(400).json({
       message: "Please provide valid ride details.",
+    });
+  }
+
+  if (from.trim().toLowerCase() === to.trim().toLowerCase()) {
+    return res.status(400).json({
+      message: "Starting location and destination must be different.",
     });
   }
 
