@@ -6,6 +6,20 @@ function App() {
   const [rides, setRides] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [searchFrom, setSearchFrom] = useState("");
+  const [searchTo, setSearchTo] = useState("");
+
+  const filteredRides = rides.filter((ride) => {
+    const matchesFrom = ride.from
+      .toLowerCase()
+      .includes(searchFrom.trim().toLowerCase());
+
+    const matchesTo = ride.to
+      .toLowerCase()
+      .includes(searchTo.trim().toLowerCase());
+
+    return matchesFrom && matchesTo;
+  });
 
   // Passenger request form state
   const [passengerName, setPassengerName] = useState("");
@@ -188,15 +202,41 @@ function App() {
         <h2>Available Rides</h2>
         <p>Find a ride that matches your route.</p>
 
+        <input
+          type="text"
+          placeholder="Pickup location"
+          value={searchFrom}
+          onChange={(event) => setSearchFrom(event.target.value)}
+        />
+
+        <input
+          type="text"
+          placeholder="Destination"
+          value={searchTo}
+          onChange={(event) => setSearchTo(event.target.value)}
+        />
+
+        <button
+          type="button"
+          onClick={() => {
+            setSearchFrom("");
+            setSearchTo("");
+          }}
+        >
+          Clear Search
+        </button>
+
         {loading ? (
           <p>Finding available rides...</p>
         ) : error ? (
           <p>{error}</p>
         ) : rides.length === 0 ? (
           <p>No rides available right now. Check back soon!</p>
+        ) : filteredRides.length === 0 ? (
+          <p>No matching rides found. Try another route.</p>
         ) : (
           <div className="rides-grid">
-            {rides.map((ride) => (
+            {filteredRides.map((ride) => (
               <RideCard
                 key={ride.id}
                 name={ride.name}
