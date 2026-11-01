@@ -8,6 +8,7 @@ function App() {
   const [error, setError] = useState("");
   const [searchFrom, setSearchFrom] = useState("");
   const [searchTo, setSearchTo] = useState("");
+  const [searchVehicle, setSearchVehicle] = useState("");
 
   const filteredRides = rides.filter((ride) => {
     const matchesFrom = ride.from
@@ -18,7 +19,10 @@ function App() {
       .toLowerCase()
       .includes(searchTo.trim().toLowerCase());
 
-    return matchesFrom && matchesTo;
+    const matchesVehicle =
+      searchVehicle === "" || ride.vehicle === searchVehicle;
+
+    return matchesFrom && matchesTo && matchesVehicle;
   });
 
   // Passenger request form state
@@ -216,11 +220,22 @@ function App() {
           onChange={(event) => setSearchTo(event.target.value)}
         />
 
+        <select
+          value={searchVehicle}
+          onChange={(event) => setSearchVehicle(event.target.value)}
+        >
+          <option value="">All Vehicles</option>
+          <option value="Bike">Bike</option>
+          <option value="Scooter">Scooter</option>
+          <option value="Car">Car</option>
+        </select>
+
         <button
           type="button"
           onClick={() => {
             setSearchFrom("");
             setSearchTo("");
+            setSearchVehicle("");
           }}
         >
           Clear Search
